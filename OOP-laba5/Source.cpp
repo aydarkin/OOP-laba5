@@ -28,7 +28,7 @@ public:
 	}
 
 	virtual ~Figure() {
-		cout << "устроен destroyed Figure" << endl;
+		cout << "ГіЕ„Е€Д‘Г®ДєГ­ destroyed Figure" << endl;
 	}
 	
 	virtual string ClassName() {
@@ -63,44 +63,44 @@ public:
 		width = square.width;
 	}
 
-	void PrintInfo() { //переопределяет метод родителя
+	void PrintInfo() { //ДЏДєД‘ДєГ®ДЏД‘ДєГ¤ДєГ«Л™ДєЕ€ Д›ДєЕ€Г®Г¤ Д‘Г®Г¤ДЌЕ€ДєГ«Л™
 		printf("Square { x = %d, y = %d, width = %d }\n", this->x, this->y, this->width);
 	}
 
-	virtual ~Square() override { //перекрывает
-		cout << "устроен destroyed Square" << endl;
+	virtual ~Square() override { //ДЏДєД‘ДєД™Д‘Е±ГўЕ•ДєЕ€
+		cout << "ГіЕ„Е€Д‘Г®ДєГ­ destroyed Square" << endl;
 	}
 
-	virtual string ClassName() override { //перекрывает
+	virtual string ClassName() override { //ДЏДєД‘ДєД™Д‘Е±ГўЕ•ДєЕ€
 		return "Square";
 	}
 
-	virtual bool isA(string className) override { //перекрывает
+	virtual bool isA(string className) override { //ДЏДєД‘ДєД™Д‘Е±ГўЕ•ДєЕ€
 		return className == ClassName() || Figure::isA(className);
 	}
 
-	int GetArea() { //свой метод
+	int GetArea() { //Е„ГўГ®Г© Д›ДєЕ€Г®Г¤
 		return width * width;
-	}
+	} 
 };
 
 class OffsetSuperMaster
 {
 public:
 	void TryOffset1(Figure figure, int dx, int dy) {
-		//передается объект полностью
+		//ДЏДєД‘ДєГ¤Е•ДєЕ€Е„Л™ Г®ГЎГєДєД™Е€ ДЏГ®Г«Г­Г®Е„Е€ГјЕЈ
 		printf("TryOffset1(Figure) x = %d, y=%d, dx=%d, dy=%d\n", figure.x, figure.y, dx, dy);
 		figure.x += dx;
 		figure.y += dy;
 	}
 	void TryOffset2(Figure* figure, int dx, int dy) {
-		//передается указатель на объект
+		//ДЏДєД‘ДєГ¤Е•ДєЕ€Е„Л™ ГіД™Е•Г§Е•Е€ДєГ«Гј Г­Е• Г®ГЎГєДєД™Е€
 		printf("TryOffset2(Figure*) x = %d, y=%d, dx=%d, dy=%d\n", figure->x, figure->y, dx, dy);
 		figure->x += dx;
 		figure->y += dy;
 	}
 	void TryOffset3(Figure& figure, int dx, int dy) {
-		//передается адрес объекта
+		//ДЏДєД‘ДєГ¤Е•ДєЕ€Е„Л™ Е•Г¤Д‘ДєЕ„ Г®ГЎГєДєД™Е€Е•
 		printf("TryOffset3(Figure&) x = %d, y=%d, dx=%d, dy=%d\n", figure.x, figure.y, dx, dy);
 		figure.x += dx;
 		figure.y += dy;
@@ -112,7 +112,7 @@ public:
 int main() {
 	setlocale(LC_ALL, "Rus");
 
-	cout << endl << endl << "Конструкторы, деструкторы" << endl;
+	cout << endl << endl << "ДГ®Г­Е„Е€Д‘ГіД™Е€Г®Д‘Е±, Г¤ДєЕ„Е€Д‘ГіД™Е€Г®Д‘Е±" << endl;
 	{
 		Figure f1;
 		Square s1;
@@ -129,12 +129,12 @@ int main() {
 	f1->x = 10;
 
 	s1->PrintInfo(); 
-	f1->PrintInfo(); //вызывается метод предка, т.к. в Square он переопределен, не перекрыт
+	f1->PrintInfo(); //ГўЕ±Г§Е±ГўЕ•ДєЕ€Е„Л™ Д›ДєЕ€Г®Г¤ ДЏД‘ДєГ¤Д™Е•, Е€.Д™. Гў Square Г®Г­ ДЏДєД‘ДєГ®ДЏД‘ДєГ¤ДєГ«ДєГ­, Г­Дє ДЏДєД‘ДєД™Д‘Е±Е€
 	
 	delete s1;
 	delete f1;
 
-	cout << endl << endl << "Проверка механизма передачи объектов" << endl;
+	cout << endl << endl << "ДЋД‘Г®ГўДєД‘Д™Е• Д›ДєЕ‘Е•Г­ДЌГ§Д›Е• ДЏДєД‘ДєГ¤Е•Г·ДЌ Г®ГЎГєДєД™Е€Г®Гў" << endl;
 
 	{
 		Figure f2;
@@ -143,23 +143,23 @@ int main() {
 		f2.PrintInfo();
 
 		OffsetSuperMaster wonderwafla;
-		wonderwafla.TryOffset1(f2, 10, 10); //скопирован объект
-		f2.PrintInfo();//объект не изменился
+		wonderwafla.TryOffset1(f2, 10, 10); //Е„Д™Г®ДЏДЌД‘Г®ГўЕ•Г­ Г®ГЎГєДєД™Е€
+		f2.PrintInfo();//Г®ГЎГєДєД™Е€ Г­Дє ДЌГ§Д›ДєГ­ДЌГ«Е„Л™
 
-		wonderwafla.TryOffset2(&f2, 10, 10); //передан указатель на объект
-		f2.PrintInfo(); //объект изменился
+		wonderwafla.TryOffset2(&f2, 10, 10); //ДЏДєД‘ДєГ¤Е•Г­ ГіД™Е•Г§Е•Е€ДєГ«Гј Г­Е• Г®ГЎГєДєД™Е€
+		f2.PrintInfo(); //Г®ГЎГєДєД™Е€ ДЌГ§Д›ДєГ­ДЌГ«Е„Л™
 
-		wonderwafla.TryOffset3(f2, 10, 10); //передан сам объект
-		f2.PrintInfo(); //объект изменился
+		wonderwafla.TryOffset3(f2, 10, 10); //ДЏДєД‘ДєГ¤Е•Г­ Е„Е•Д› Г®ГЎГєДєД™Е€
+		f2.PrintInfo(); //Г®ГЎГєДєД™Е€ ДЌГ§Д›ДєГ­ДЌГ«Е„Л™
 	}
 	
-	cout << endl << endl << "Приведение типов" << endl;
+	cout << endl << endl << "ДЋД‘ДЌГўДєГ¤ДєГ­ДЌДє Е€ДЌДЏГ®Гў" << endl;
 
 	Figure* kvadrat = new Square();
 
 	if (kvadrat->isA("Square")) {
 		((Square*)kvadrat)->width = 16;
-		cout << "1)Площадь квадрата = " << ((Square*)kvadrat)->GetArea() << endl;
+		cout << "1)ДЋГ«Г®ЕЇЕ•Г¤Гј Д™ГўЕ•Г¤Д‘Е•Е€Е• = " << ((Square*)kvadrat)->GetArea() << endl;
 	}
 		
 
@@ -167,11 +167,11 @@ int main() {
 	if (realKvadrat) // != nullptr
 	{
 		realKvadrat->width = 17;
-		cout << "2)Площадь квадрата = " << realKvadrat->GetArea() << endl;
+		cout << "2)ДЋГ«Г®ЕЇЕ•Г¤Гј Д™ГўЕ•Г¤Д‘Е•Е€Е• = " << realKvadrat->GetArea() << endl;
 	}
 		
 
-	cout << "Конец программы" << endl;
+	cout << "ДГ®Г­ДєГ¶ ДЏД‘Г®ДѓД‘Е•Д›Д›Е±" << endl;
 	delete kvadrat; 
-	//delete realKvadrat; //по адресу в указателе kvadrat объект уже удален
+	//delete realKvadrat; //ДЏГ® Е•Г¤Д‘ДєЕ„Гі Гў ГіД™Е•Г§Е•Е€ДєГ«Дє kvadrat Г®ГЎГєДєД™Е€ ГіД‡Дє ГіГ¤Е•Г«ДєГ­
 }
