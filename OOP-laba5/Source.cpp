@@ -28,7 +28,7 @@ public:
 	}
 
 	virtual ~Figure() {
-		cout << "óńňđîĺí destroyed Figure" << endl;
+		cout << "устроен destroyed Figure" << endl;
 	}
 	
 	virtual string ClassName() {
@@ -63,44 +63,44 @@ public:
 		width = square.width;
 	}
 
-	void PrintInfo() { //ďĺđĺîďđĺäĺë˙ĺň ěĺňîä đîäčňĺë˙
+	void PrintInfo() { //переопределяет метод родителя
 		printf("Square { x = %d, y = %d, width = %d }\n", this->x, this->y, this->width);
 	}
 
-	virtual ~Square() override { //ďĺđĺęđűâŕĺň
-		cout << "óńňđîĺí destroyed Square" << endl;
+	virtual ~Square() override { //перекрывает
+		cout << "устроен destroyed Square" << endl;
 	}
 
-	virtual string ClassName() override { //ďĺđĺęđűâŕĺň
+	virtual string ClassName() override { //перекрывает
 		return "Square";
 	}
 
-	virtual bool isA(string className) override { //ďĺđĺęđűâŕĺň
+	virtual bool isA(string className) override { //перекрывает
 		return className == ClassName() || Figure::isA(className);
 	}
 
-	int GetArea() { //ńâîé ěĺňîä
+	int GetArea() { //свой метод
 		return width * width;
-	} 
+	}
 };
 
 class OffsetSuperMaster
 {
 public:
 	void TryOffset1(Figure figure, int dx, int dy) {
-		//ďĺđĺäŕĺňń˙ îáúĺęň ďîëíîńňüţ
+		//передается объект полностью
 		printf("TryOffset1(Figure) x = %d, y=%d, dx=%d, dy=%d\n", figure.x, figure.y, dx, dy);
 		figure.x += dx;
 		figure.y += dy;
 	}
 	void TryOffset2(Figure* figure, int dx, int dy) {
-		//ďĺđĺäŕĺňń˙ óęŕçŕňĺëü íŕ îáúĺęň
+		//передается указатель на объект
 		printf("TryOffset2(Figure*) x = %d, y=%d, dx=%d, dy=%d\n", figure->x, figure->y, dx, dy);
 		figure->x += dx;
 		figure->y += dy;
 	}
 	void TryOffset3(Figure& figure, int dx, int dy) {
-		//ďĺđĺäŕĺňń˙ ŕäđĺń îáúĺęňŕ
+		//передается адрес объекта
 		printf("TryOffset3(Figure&) x = %d, y=%d, dx=%d, dy=%d\n", figure.x, figure.y, dx, dy);
 		figure.x += dx;
 		figure.y += dy;
@@ -112,7 +112,7 @@ public:
 int main() {
 	setlocale(LC_ALL, "Rus");
 
-	cout << endl << endl << "Ęîíńňđóęňîđű, äĺńňđóęňîđű" << endl;
+	cout << endl << endl << "Конструкторы, деструкторы" << endl;
 	{
 		Figure f1;
 		Square s1;
@@ -129,12 +129,12 @@ int main() {
 	f1->x = 10;
 
 	s1->PrintInfo(); 
-	f1->PrintInfo(); //âűçűâŕĺňń˙ ěĺňîä ďđĺäęŕ, ň.ę. â Square îí ďĺđĺîďđĺäĺëĺí, íĺ ďĺđĺęđűň
+	f1->PrintInfo(); //вызывается метод предка, т.к. в Square он переопределен, не перекрыт
 	
 	delete s1;
 	delete f1;
 
-	cout << endl << endl << "Ďđîâĺđęŕ ěĺőŕíčçěŕ ďĺđĺäŕ÷č îáúĺęňîâ" << endl;
+	cout << endl << endl << "Проверка механизма передачи объектов" << endl;
 
 	{
 		Figure f2;
@@ -143,23 +143,23 @@ int main() {
 		f2.PrintInfo();
 
 		OffsetSuperMaster wonderwafla;
-		wonderwafla.TryOffset1(f2, 10, 10); //ńęîďčđîâŕí îáúĺęň
-		f2.PrintInfo();//îáúĺęň íĺ čçěĺíčëń˙
+		wonderwafla.TryOffset1(f2, 10, 10); //скопирован объект
+		f2.PrintInfo();//объект не изменился
 
-		wonderwafla.TryOffset2(&f2, 10, 10); //ďĺđĺäŕí óęŕçŕňĺëü íŕ îáúĺęň
-		f2.PrintInfo(); //îáúĺęň čçěĺíčëń˙
+		wonderwafla.TryOffset2(&f2, 10, 10); //передан указатель на объект
+		f2.PrintInfo(); //объект изменился
 
-		wonderwafla.TryOffset3(f2, 10, 10); //ďĺđĺäŕí ńŕě îáúĺęň
-		f2.PrintInfo(); //îáúĺęň čçěĺíčëń˙
+		wonderwafla.TryOffset3(f2, 10, 10); //передан сам объект
+		f2.PrintInfo(); //объект изменился
 	}
 	
-	cout << endl << endl << "Ďđčâĺäĺíčĺ ňčďîâ" << endl;
+	cout << endl << endl << "Приведение типов" << endl;
 
 	Figure* kvadrat = new Square();
 
 	if (kvadrat->isA("Square")) {
 		((Square*)kvadrat)->width = 16;
-		cout << "1)Ďëîůŕäü ęâŕäđŕňŕ = " << ((Square*)kvadrat)->GetArea() << endl;
+		cout << "1)Площадь квадрата = " << ((Square*)kvadrat)->GetArea() << endl;
 	}
 		
 
@@ -167,11 +167,11 @@ int main() {
 	if (realKvadrat) // != nullptr
 	{
 		realKvadrat->width = 17;
-		cout << "2)Ďëîůŕäü ęâŕäđŕňŕ = " << realKvadrat->GetArea() << endl;
+		cout << "2)Площадь квадрата = " << realKvadrat->GetArea() << endl;
 	}
 		
 
-	cout << "Ęîíĺö ďđîăđŕěěű" << endl;
+	cout << "Конец программы" << endl;
 	delete kvadrat; 
-	//delete realKvadrat; //ďî ŕäđĺńó â óęŕçŕňĺëĺ kvadrat îáúĺęň óćĺ óäŕëĺí
+	//delete realKvadrat; //по адресу в указателе kvadrat объект уже удален
 }
